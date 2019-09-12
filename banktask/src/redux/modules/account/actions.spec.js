@@ -63,3 +63,13 @@ describe('deleteAccount', () => {
     expect(deleteAccount('TestID')).toEqual(expectedAction);
   });
 });
+
+describe('deleteAccount', () => {
+  it('should return the correct action', () => {
+    const expectedAction = {
+      type: TYPES.DELETE_ACCOUNT,
+      payload: 'TestID'
+    }
+    expect(deleteAccount('TestID')).toEqual(expectedAction);
+  });
+});

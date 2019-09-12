@@ -1,4 +1,8 @@
 import { TYPES } from './types';
+<<<<<<< 89fc953aab5363a0ba1a38a3d03ea61e86ad1800
+=======
+import { loadAccounts, loadAccountsSuccess, deleteAccount } from './actions'
+>>>>>>> bank: account delete functionality
 import accountsReducer from './reducers';
 
 describe('Accounts reducer', () => {
@@ -142,4 +146,47 @@ describe('Accounts reducer', () => {
       expect(expectedState).toEqual(newState);
     });
   });
+<<<<<<< 89fc953aab5363a0ba1a38a3d03ea61e86ad1800
 });
+=======
+});
+
+describe('case: TYPE.DELETE_ACCOUNTS', () => {
+  it('Should remove the specified account from the state', () => {
+    const fakeInitialState = {
+      BG12BUIN12341234567891: {
+        id: 'BG12BUIN12341234567891',
+        currency: 'BGN',
+        balance: '5678.00'
+      },
+      BG12BUIN12341234567892: {
+        id: 'BG12BUIN12341234567892',
+        currency: 'USD',
+        balance: '3456.00'
+      },
+      BG12BUIN12341234567893: {
+        id: 'BG12BUIN12341234567893',
+        currency: 'EUR',
+        balance: '2345.00'
+      }
+    };
+    const expectedState = {
+      BG12BUIN12341234567892: {
+        id: 'BG12BUIN12341234567892',
+        currency: 'USD',
+        balance: '3456.00'
+      },
+      BG12BUIN12341234567893: {
+        id: 'BG12BUIN12341234567893',
+        currency: 'EUR',
+        balance: '2345.00'
+      }
+    };
+    const newState = accountsReducer(fakeInitialState, deleteAccount('BG12BUIN12341234567891'));
+    //console.log('case: TYPES.DELETE_ACCOUNT:');
+   // console.log(newState);
+    expect(newState).toEqual(expectedState);
+  });
+});
+// Create account and delete account to be implemented.
+>>>>>>> bank: account delete functionality
