@@ -10,20 +10,22 @@ describe('The input field component', () => {
         type: 'text',
         className: 'money-input-test-classname',
         value: '500',
-        onChange: () => { console.log('Input field test function') },
-        placeholder: 'Demo placeholder'
+        onChange: () => { },
+        placeholder: 'Demo placeholder',
+        'data-testid': 'Test Input'
       };
       const propsError = checkProps(InputField, expectedProps);
       expect(propsError).toBeUndefined();
     });
 
-    it('Should throw a warning', () => {
+    it('Should throw a warning in the browser console', () => {
       const expectedProps = {
         type: 'text',
         className: 35,
         value: undefined,
         onChange: () => { console.log('Input field test function') },
-        placeholder: 'Demo placeholder'
+        placeholder: 'Demo placeholder',
+        'data-testid': 35
       };
       const propsError = checkProps(InputField, expectedProps);
       expect(propsError).toBeTruthy();
@@ -42,18 +44,19 @@ describe('The input field component', () => {
         className: 'money-input-test-classname',
         value: '500',
         onChange: mockFunc,
-        placeholder: 'Demo placeholder'
+        placeholder: 'Demo placeholder',
+        'data-testid': 'Test Input'
       };
       wrapper = shallow(<InputField {...props} />);
     });
     
     it('Should render an InputField component', () => {
-      const inputfield = findByTestAttribute(wrapper, 'Input field primitive');
+      const inputfield = findByTestAttribute(wrapper, 'Test Input Primitive');
       expect(inputfield.length).toBe(1);
     });
 
     it('Should emit the mock function on the onChange event', () => {
-      const inputField = findByTestAttribute(wrapper, 'Input field primitive');
+      const inputField = findByTestAttribute(wrapper, 'Test Input Primitive');
       inputField.simulate('change');
       inputField.simulate('change');
       inputField.simulate('change');

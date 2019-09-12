@@ -1,32 +1,48 @@
 import { TYPES } from './types';
-import axios from 'axios';
-
-export const loadAccountsSuccess = (payload) => {
-  return {
-    type: TYPES.LOAD_ACCOUNTS_SUCCESS,
-    payload
-  }
-}
 
 export const loadAccounts = () => {
-  return (dispatch) => 
-    axios.get('/accounts')
-         .then(response => dispatch(loadAccountsSuccess(response.data.accounts)))
-}
-
-export const updateAccount = (reply) => {
   return {
-    type: TYPES.UPDATE_ACCOUNT,
-    payload: reply
+    type: TYPES.LOAD_ACCOUNTS,
+    payload: {
+      request: {
+        method: 'get',
+        url: '/accounts',
+      }
+    }
   }
 }
 
-export const submitTransaction = (id, amount, transactionType) => {
-  return (dispatch) => {
-    return axios.put('/accounts', { id, amount, transactionType })
-                .then(response => {
-                  dispatch(updateAccount(response.data));
-                  return response;
-                })
+export const updateAccount = (id, amount, transactionType) => {
+  return {
+    type: TYPES.UPDATE_ACCOUNT,
+    payload: {
+      request: {
+        method: 'put',
+        url: '/accounts',
+        data: {
+          id,
+          amount,
+          transactionType
+        }
+      }
     }
+  }
+}
+
+export const deleteAccount = (id) => {
+  return {
+    type: TYPES.DELETE_ACCOUNT,
+    payload: {
+      request: {
+        method: 'delete',
+        url: '/accounts',
+        params: {
+          id
+        }
+      }
+    },
+    meta: {
+      alert: 'Account deleted successfully!'
+    }
+  }
 }

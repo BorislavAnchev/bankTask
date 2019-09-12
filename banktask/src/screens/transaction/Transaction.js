@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
 import Button from '../../components/Button/Button';
 import InputField from '../../components/InputField/InputField';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import './styles.scss';
-import { submitTransaction } from '../../redux/modules/account/actions';
-
-
-import { mock } from '../../App';
+import { deleteAccount, updateAccount } from '../../redux/modules/account/actions';
 
 const Transaction = () => {
 
@@ -20,32 +16,6 @@ const Transaction = () => {
   const [warning, setWarning] = useState('');
   const [submitWarning, setSubmitWarning] = useState('');
   const accounts = useSelector((state) => state.accounts);
-  const [balance, setBalance] = useState('');
-
-  mock.onPut('/accounts',
-    { id,
-      amount,
-      transactionType: 'Deposit'
-    })
-    .reply(204, {
-      id,            
-      iban: (/_\w{9}/).test(id) ? accounts[id]['iban'] : '',
-      currency: (/_\w{9}/).test(id) ? accounts[id]['currency'] : '',
-      balance: (Number(balance) + Number(amount)).toFixed(2).toString(),
-    });
-
-  mock.onPut('/accounts',
-    {
-      id,
-      amount,
-      transactionType: 'Withdraw'
-    })
-  .reply(204, {
-    id,
-    iban: (/_\w{9}/).test(id) ? accounts[id]['iban'] : '',
-    currency: (/_\w{9}/).test(id) ? accounts[id]['currency'] : '',
-    balance: (Number(balance) - Number(amount)).toFixed(2).toString(),
-  });
   
   const accountOptions = Object.keys(accounts).map((key) => {return {value: key, label: accounts[key]['iban']}});
 
@@ -69,12 +39,7 @@ const Transaction = () => {
     let transactionTypePatternTest = (/^(Deposit)$|^(Withdraw)$/).test(transactionType);
     
     if(idPatternTest && amountPatternTest && transactionTypePatternTest) {
-      dispatch(submitTransaction(id, amount, transactionType))
-        .then(response => {
-          if(response.status >= 200 && response.status < 300) {
-            setBalance(response.data.balance);
-          }
-        });
+      dispatch(updateAccount(id, amount, transactionType))
       setAmount('');
       setTransactionType('');
       setSubmitWarning('');
@@ -84,38 +49,53 @@ const Transaction = () => {
     }
   }
 
+  const onDeleteClick = () => {
+    if(!(/_\w{9}/).test(id)) {
+      setSubmitWarning('Please select an account to delete!')
+    }
+    else {
+      dispatch(deleteAccount(id));
+      setSubmitWarning('');
+      setId('');
+    }
+  }
+
   return (
-        <div data-test='transactionComponent'>
+        <div data-testid='transactionComponent'>
             <Dropdown
               className='accounts-dropdown'
               options={accountOptions} value={(/_\w{9}/).test(id) ? accounts[id]['id'] : ''}
               onChange={(event) => {
                 setId(event.value);
-                setBalance(accounts[event.value].balance); // This may get removed in favour of a conditional expression.
                 }}
               placeholder="Select an account"
-              data-test='Account Selector' />
+              data-testid='Account Selector' />
             <InputField
               type='text'
               className='money-input'
               value={amount}
               onChange={(event) => moneyInput(event.target.value)}
-              data-test='Money Input field'
-              placeholder='Format: 500.00' />
-            <div className='warning'>{warning}</div>
+              data-testid='Money Input field'
+              placeholder='Format: 500.00'
+              data-testid='Money Amount Input' />
+            <div className='warning' data-testid='Amount Warning Paragraph'>{warning}</div>
             <Dropdown
               className='transaction-dropdown'
               value={transactionType}
               options={transactionOptions}
               onChange={(event) => setTransactionType(event.value)}
               placeholder="Type"
-              data-test='Transaction Selector' />
+              data-testid='Transaction Selector' />
             <Button
               onClick={() => handleSubmit(id, amount, transactionType)}
-              data-test='buttonComponentParent'
+              data-testid='buttonComponentParent'
               buttonText='Submit' />
-            <p className='balance-section' data-test='currentBalance'>Current balance: {balance} </p>
-            <p className='submit-warning' data-test='submitWarning'>{submitWarning}</p>
+            <Button 
+              onClick={onDeleteClick}
+              data-testid='deleteButtonComponent'
+              buttonText='Delete Account'/>
+            <p className='balance-section' data-testid='currentBalance'>Current balance: {(/_\w{9}/).test(id) ? accounts[id].balance : ''} </p>
+            <p className='submit-warning' data-testid='submitWarning'>{submitWarning}</p>
         </div>
     );
 }
