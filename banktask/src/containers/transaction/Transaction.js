@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+
 import Button from '../../components/Button/Button';
 import InputField from '../../components/InputField/InputField';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import './styles.scss';
 import { submitTransaction } from '../../redux/modules/account/actions';
+
 
 import { mock } from '../../App';
 
@@ -19,26 +21,35 @@ const Transaction = () => {
   const [submitWarning, setSubmitWarning] = useState('');
   const accounts = useSelector((state) => state.accounts);
   const [balance, setBalance] = useState('');
-  const [mockCurrency, setMockCurrency] = useState(''); // For mocking purposes
 
-  useEffect(() => { // For mocking purposes
-    if(id !== '') {
-      setMockCurrency(accounts[id].currency);
-    }
-  }, [id]);
-
-  mock.onPut('/accounts', { id: id, balance: (Number(balance) + Number(amount)).toFixed(2).toString()})
+  mock.onPut('/accounts',
+    { id,
+      amount,
+      transactionType: 'Deposit'
+    })
     .reply(204, {
-                  id: id,
-                  currency: mockCurrency, // Returns the correct currency
-                  balance: (Number(balance) + Number(amount)).toFixed(2).toString()
-                });
-  
-  const accountOptions = Object.keys(accounts).map((key) => key);
+      id,            
+      iban: (/_\w{9}/).test(id) ? accounts[id]['iban'] : '',
+      currency: (/_\w{9}/).test(id) ? accounts[id]['currency'] : '',
+      balance: (Number(balance) + Number(amount)).toFixed(2).toString(),
+    });
 
-  const transactionOptions = [
-    { value: 'Deposit', label: 'Deposit'}, // Add withdraw option. May be a flat array.
-  ];
+  mock.onPut('/accounts',
+    {
+      id,
+      amount,
+      transactionType: 'Withdraw'
+    })
+  .reply(204, {
+    id,
+    iban: (/_\w{9}/).test(id) ? accounts[id]['iban'] : '',
+    currency: (/_\w{9}/).test(id) ? accounts[id]['currency'] : '',
+    balance: (Number(balance) - Number(amount)).toFixed(2).toString(),
+  });
+  
+  const accountOptions = Object.keys(accounts).map((key) => {return {value: key, label: accounts[key]['iban']}});
+
+  const transactionOptions = ['Deposit', 'Withdraw'];
   
   const moneyInput = (input) => {
     const pattern = /^[0-9]+([.,][0-9]{0,2})?$/;
@@ -53,11 +64,12 @@ const Transaction = () => {
   }
 
   const handleSubmit = (id, amount, transactionType) => {
-    let idPatternTest = (/^BG\d{2}BUIN\d{14}$/).test(id);
+    let idPatternTest = (/_\w{9}/).test(id);
     let amountPatternTest = (/^[0-9]+([.,][0-9]{0,2})?$/).test(amount);
     let transactionTypePatternTest = (/^(Deposit)$|^(Withdraw)$/).test(transactionType);
+    
     if(idPatternTest && amountPatternTest && transactionTypePatternTest) {
-      dispatch(submitTransaction(id, amount, transactionType, balance))
+      dispatch(submitTransaction(id, amount, transactionType))
         .then(response => {
           if(response.status >= 200 && response.status < 300) {
             setBalance(response.data.balance);
@@ -76,10 +88,10 @@ const Transaction = () => {
         <div data-test='transactionComponent'>
             <Dropdown
               className='accounts-dropdown'
-              options={accountOptions} value={id}
+              options={accountOptions} value={(/_\w{9}/).test(id) ? accounts[id]['id'] : ''}
               onChange={(event) => {
                 setId(event.value);
-                setBalance(accounts[event.value].balance);
+                setBalance(accounts[event.value].balance); // This may get removed in favour of a conditional expression.
                 }}
               placeholder="Select an account"
               data-test='Account Selector' />
@@ -99,7 +111,6 @@ const Transaction = () => {
               placeholder="Type"
               data-test='Transaction Selector' />
             <Button
-              className='submit-button'
               onClick={() => handleSubmit(id, amount, transactionType)}
               data-test='buttonComponentParent'
               buttonText='Submit' />

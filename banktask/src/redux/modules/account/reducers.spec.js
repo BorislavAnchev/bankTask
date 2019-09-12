@@ -1,6 +1,18 @@
 import { TYPES } from './types';
-import { loadAccountsSuccess } from './actions'
+import { loadAccountsSuccess, updateAccount } from './actions'
 import accountsReducer from './reducers';
+const axios = require('axios');
+const MockAdapter = require('axios-mock-adapter');
+
+const mock = new MockAdapter(axios);
+
+mock.onGet('/accounts').reply(200, {
+  accounts: [
+    { id: '_u70nyuzcq', iban: 'BG12BUIN12341234567891', currency: 'BGN', balance: '5678.00' },
+    { id: '_wi2ozmsx9', iban: 'BG12BUIN12341234567892', currency: 'USD', balance: '3456.00' },
+    { id: '_bousuqei6', iban: 'BG12BUIN12341234567893', currency: 'EUR', balance: '2345.00' }
+  ]
+});
 
 describe('Accounts reducer', () => {
   it('should return the default state', () => {
@@ -13,38 +25,44 @@ describe('Accounts reducer', () => {
       data: {
         accounts: [
           {
-            id: 'BG12BUIN12341234567891',
+            id: '_u70nyuzcq',
+            iban: 'BG12BUIN12341234567891',
             currency: 'BGN',
-            balance: '5678.00'
+            balance: '5678.00',
           },
           {
-            id: 'BG12BUIN12341234567892',
+            id: '_wi2ozmsx9',
+            iban: 'BG12BUIN12341234567892',
             currency: 'USD',
-            balance: '3456.00'
+            balance: '3456.00',
           },
           {
-            id: 'BG12BUIN12341234567893',
+            id: '_bousuqei6',
+            iban: 'BG12BUIN12341234567893',
             currency: 'EUR',
-            balance: '2345.00'
+            balance: '2345.00',
           }
         ]
       }
     }
     const expectedState = {
-      BG12BUIN12341234567891: {
-        id: 'BG12BUIN12341234567891',
+      _u70nyuzcq: {
+        id: '_u70nyuzcq',
+        iban: 'BG12BUIN12341234567891',
         currency: 'BGN',
-        balance: '5678.00'
+        balance: '5678.00',
       },
-      BG12BUIN12341234567892: {
-        id: 'BG12BUIN12341234567892',
+      _wi2ozmsx9: {
+        id: '_wi2ozmsx9',
+        iban: 'BG12BUIN12341234567892',
         currency: 'USD',
-        balance: '3456.00'
+        balance: '3456.00',
       },
-      BG12BUIN12341234567893: {
-        id: 'BG12BUIN12341234567893',
+      _bousuqei6: {
+        id: '_bousuqei6',
+        iban: 'BG12BUIN12341234567893',
         currency: 'EUR',
-        balance: '2345.00'
+        balance: '2345.00',
       }
     }
 
@@ -60,38 +78,44 @@ describe('Accounts reducer', () => {
       data: {
         accounts: [
           {
-            id: 'BG12BUIN12341234567891',
+            id: '_u70nyuzcq',
+            iban: 'BG12BUIN12341234567891',
             currency: 'BGN',
-            balance: '5678.00'
+            balance: '5678.00',
           },
           {
-            id: 'BG12BUIN12341234567892',
+            id: '_wi2ozmsx9',
+            iban: 'BG12BUIN12341234567892',
             currency: 'USD',
-            balance: '3456.00'
+            balance: '3456.00',
           },
           {
-            id: 'BG12BUIN12341234567893',
+            id: '_bousuqei6',
+            iban: 'BG12BUIN12341234567893',
             currency: 'EUR',
-            balance: '2345.00'
+            balance: '2345.00',
           }
         ]
       }
     }
     const expectedState = {
-      BG12BUIN12341234567891: {
-        id: 'BG12BUIN12341234567891',
+      _u70nyuzcq: {
+        id: '_u70nyuzcq',
+        iban: 'BG12BUIN12341234567891',
         currency: 'BGN',
-        balance: '5678.00'
+        balance: '5678.00',
       },
-      BG12BUIN12341234567892: {
-        id: 'BG12BUIN12341234567892',
+      _wi2ozmsx9: {
+        id: '_wi2ozmsx9',
+        iban: 'BG12BUIN12341234567892',
         currency: 'USD',
-        balance: '3456.00'
+        balance: '3456.00',
       },
-      BG12BUIN12341234567893: {
-        id: 'BG12BUIN12341234567893',
+      _bousuqei6: {
+        id: '_bousuqei6',
+        iban: 'BG12BUIN12341234567893',
         currency: 'EUR',
-        balance: '2345.00'
+        balance: '2345.00',
       }
     }
     const newState = accountsReducer(undefined, loadAccountsSuccess(fakeResponse.data.accounts));
@@ -99,4 +123,31 @@ describe('Accounts reducer', () => {
   });
 });
 
-// Create account and delete account to be implemented.
+describe('case: TYPES.UPDATE_ACCOUNT', () => {
+  it('Should update the specified account correctly', () => {
+    const fakeInitialState = {
+      _bousuqei6: {
+        id: '_bousuqei6',
+        iban: 'BG12BUIN12341234567893',
+        currency: 'EUR',
+        balance: '2345.00',
+      }
+    };
+    const expectedState = {
+      _bousuqei6: {
+        id: '_bousuqei6',
+        iban: 'BG12BUIN12341234567893',
+        currency: 'EUR',
+        balance: '2645.00',
+      }
+    }
+    const fakeReply = {
+      id: '_bousuqei6',
+      iban: 'BG12BUIN12341234567893',
+      currency: 'EUR',
+      balance: '2645.00',
+    }
+    const newState = accountsReducer(fakeInitialState, updateAccount(fakeReply));
+    expect(expectedState).toEqual(newState);
+  });
+});
