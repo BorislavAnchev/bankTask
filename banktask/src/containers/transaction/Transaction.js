@@ -54,18 +54,23 @@ const Transaction = () => {
     console.log(mockCurrency);
   },[mockCurrency]);
 
-  mock.onPut('/accounts', { id: id, balance: (Number(balance) + Number(amount)).toFixed(2).toString()})
+  mock.onPut('/accounts', { id: id, balance: (Number(balance) + Number(amount)).toFixed(2).toString()}) // For deposit
     .reply(204, {
                   id: id,
                   currency: mockCurrency, // Returns the correct currency
                   balance: (Number(balance) + Number(amount)).toFixed(2).toString()
                 });
+
+  mock.onPut('/accounts', { id: id, balance: (Number(balance) - Number(amount)).toFixed(2).toString()}) // For withdraw
+  .reply(204, {
+                id: id,
+                currency: mockCurrency, // Returns the correct currency
+                balance: (Number(balance) - Number(amount)).toFixed(2).toString()
+              });
   
   const accountOptions = Object.keys(accounts).map((key) => key);
 
-  const transactionOptions = [
-    { value: 'Deposit', label: 'Deposit'}, // Add withdraw option. May be a flat array.
-  ];
+  const transactionOptions = ['Deposit', 'Withdraw'];
   
   const moneyInput = (input) => {
     const pattern = /^[0-9]+([.,][0-9]{0,2})?$/;

@@ -48,6 +48,9 @@ export const submitTransaction = (id, amount, transactionType, balance) => {
     if(transactionType === 'Deposit') {
       newBalance = (Number(balance) + Number(amount)).toFixed(2).toString();
     }
+    else if(transactionType === 'Withdraw') {
+      newBalance = (Number(balance) - Number(amount)).toFixed(2).toString();
+    }
       return axios.put('/accounts', { id: id, balance: newBalance })
                   .then(response => {
                     dispatch(updateAccount(response.data));

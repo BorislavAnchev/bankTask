@@ -22,6 +22,7 @@ mock.onGet('/accounts').reply(200, {
   });
 
 mock.onPut('/accounts', { id: 'BG12BUIN12341234567891', balance: '5978.00' }).reply(202, { id: 'BG12BUIN12341234567891', currency: 'BGN', balance: '5978.00'});
+mock.onPut('/accounts', { id: 'BG12BUIN12341234567891', balance: '5378.00' }).reply(202, { id: 'BG12BUIN12341234567891', currency: 'BGN', balance: '5378.00'});
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -109,10 +110,30 @@ describe('submitTransaction() testing', () => {
     const mockTransactionType = 'Deposit';
     const mockBalance = '5678.00';
     
-    store.dispatch(submitTransaction(mockId, mockAmount, mockTransactionType, mockBalance)).then(() => { // EIDT
+    store.dispatch(submitTransaction(mockId, mockAmount, mockTransactionType, mockBalance)).then(() => {
     expect(store.getActions()).toEqual(expectedActions);
     })
+  });
 
-
+  it('Should log the correct action into the mocked store given the transaction type of "Withdraw"', () => {
+    const store = mockStore({ accounts: [] });
+    const expectedActions = [
+      {
+        type: 'UPDATE_ACCOUNT',
+        payload: {
+            id: 'BG12BUIN12341234567891',
+            currency: 'BGN',
+            balance: '5378.00'
+          }
+      }
+    ]
+    const mockId = 'BG12BUIN12341234567891';
+    const mockAmount = '300';
+    const mockTransactionType = 'Withdraw';
+    const mockBalance = '5678.00';
+    
+    store.dispatch(submitTransaction(mockId, mockAmount, mockTransactionType, mockBalance)).then(() => {
+    expect(store.getActions()).toEqual(expectedActions);
+    })
   });
 });
