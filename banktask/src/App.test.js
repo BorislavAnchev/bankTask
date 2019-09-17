@@ -1,4 +1,5 @@
 import React from 'react';
+<<<<<<< 4f6589fee7b86c869775285d7c721b7c564ee972
 import { MemoryRouter } from 'react-router-dom';
 import { mount } from 'enzyme';
 import App from './App';
@@ -39,5 +40,20 @@ describe('App component', () => {
     const transactionRouter = findByTestAttribute(wrapper, 'Transaction Page Route');
     expect(transactionRouter.length).toBe(1);
   });
+=======
+import ReactDOM from 'react-dom';
+// import { Link } from 'react-router';
+import { MemoryRouter, Link } from 'react-router-dom';
+import App from './App';
+import { findByTestAttribute } from '../utils';
+
+it('renders without crashing', () => {
+  
+
+  // it('includes link to Mission scene', () => {                                       
+  //   const wrapper = shallow(<MemoryRouter><App /></MemoryRouter>);
+  //   expect(wrapper.find(Link).props().to).toBe('/mission');
+  //  });
+>>>>>>> bank: create account functionality
 });
   

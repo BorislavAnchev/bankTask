@@ -22,7 +22,15 @@ const accounts = (state = {}, action) => {
 =======
     case TYPES.DELETE_ACCOUNT:
       return omit(state, action.payload);
+<<<<<<< 4f6589fee7b86c869775285d7c721b7c564ee972
 >>>>>>> bank: account delete functionality
+=======
+    case TYPES.CREATE_ACCOUNT:
+      return {
+        ...state,
+        [action.payload.id]: action.payload
+      }
+>>>>>>> bank: create account functionality
     default:
       return state;
   }  

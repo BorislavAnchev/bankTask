@@ -2,7 +2,13 @@ import { TYPES } from './types';
 import {
     loadAccounts,
     updateAccount,
+<<<<<<< 4f6589fee7b86c869775285d7c721b7c564ee972
     deleteAccount
+=======
+    submitTransaction,
+    deleteAccount,
+    createAccount
+>>>>>>> bank: create account functionality
 } from './actions';
 
 describe('loadAccounts', () => {
@@ -71,5 +77,25 @@ describe('deleteAccount', () => {
       payload: 'TestID'
     }
     expect(deleteAccount('TestID')).toEqual(expectedAction);
+  });
+});
+
+describe('createAccount', () => {
+  it('should return the correct action', () => {
+    const fakeReply = {
+      id: 'Test ID',
+      currency: 'Test Currency',
+      balance: '0.00'
+    };
+    
+    const expectedAction = {
+      type: TYPES.CREATE_ACCOUNT,
+      payload: {
+        id: 'Test ID',
+        currency: 'Test Currency',
+        balance: '0.00'
+      }
+    }
+    expect(createAccount(fakeReply)).toEqual(expectedAction);
   });
 });
