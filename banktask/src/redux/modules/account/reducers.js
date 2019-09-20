@@ -1,4 +1,5 @@
 import { TYPES } from './types';
+<<<<<<< 9746253361bfb0d1c6cad622e58bed5bcf349f2c
 <<<<<<< 89fc953aab5363a0ba1a38a3d03ea61e86ad1800
 import mapKeys from 'lodash/mapKeys';
 import omit from 'lodash/omit';
@@ -6,6 +7,10 @@ import omit from 'lodash/omit';
 import { combineReducers } from 'redux';
 import { mapKeys, omit } from 'lodash';
 >>>>>>> bank: account delete functionality
+=======
+import mapKeys from 'lodash/mapKeys';
+import omit from 'lodash/omit';
+>>>>>>> bank: create account and history functionality
 
 const accounts = (state = {}, action) => {
   switch(action.type) {
