@@ -26,40 +26,6 @@ mock.onPut('/accounts', { id: 'BG12BUIN12341234567891', balance: '5978.00' }).re
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-describe('Action creators', () => {
-  it('loadAccountsSuccess should return an object with correct type and payload', () => {
-    axios.get('/accounts')
-         .then(function(response) {
-            let expectedAction = {
-            type: TYPES.LOAD_ACCOUNTS_SUCCESS,
-            payload: response.data.accounts
-            } 
-            expect(loadAccountsSuccess(response.data.accounts)).toEqual(expectedAction);
-         });
-  });
-  
-  it('updateAccount should return an object with correct type and payload', () => { 
-    const mockId = 'BG12BUIN12341234567891';
-    const mockNewBalance = '5978.00';
-    const expectedAction = {
-      type: TYPES.UPDATE_ACCOUNT,
-      payload: {
-        id: mockId,
-        currency: 'BGN',
-        balance: mockNewBalance
-      }
-    }
-    axios.put('/accounts', { id: mockId, balance: mockNewBalance})
-         .then((response) => {
-           //console.log(response);
-           //console.log(updateAccount(response.data));
-           expect(response.data.id).toEqual(mockId);
-           expect(response.data.balance).toEqual(mockNewBalance);
-           expect(updateAccount(response.data)).toEqual(expectedAction); // Works all right.
-         })
-  });
-});
-
 describe('loadAccounts() testing', () => {
   it('Should log the correct action into mocked store', () => {
     const store = mockStore({ accounts: [] });

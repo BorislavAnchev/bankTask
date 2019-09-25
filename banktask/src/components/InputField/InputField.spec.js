@@ -16,6 +16,18 @@ describe('The input field component', () => {
       const propsError = checkProps(InputField, expectedProps);
       expect(propsError).toBeUndefined();
     });
+
+    it('Should throw a warning', () => {
+      const expectedProps = {
+        type: 'text',
+        className: 35,
+        value: undefined,
+        onChange: () => { console.log('Input field test function') },
+        placeholder: 'Demo placeholder'
+      };
+      const propsError = checkProps(InputField, expectedProps);
+      expect(propsError).toBeTruthy();
+    });
   });
 
   describe('Renders', () => {

@@ -5,20 +5,9 @@ import InputField from '../../components/InputField/InputField';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import './styles.scss';
-import { loadAccounts, submitTransaction } from '../../redux/modules/account/actions';
+import { submitTransaction } from '../../redux/modules/account/actions';
 
-const axios = require('axios');
-const MockAdapter = require('axios-mock-adapter');
-
-const mock = new MockAdapter(axios);
-
-mock.onGet('/accounts').reply(200, {
-  accounts: [
-    { id: 'BG12BUIN12341234567891', currency: 'BGN', balance: '5678.00' },
-    { id: 'BG12BUIN12341234567892', currency: 'USD', balance: '3456.00' },
-    { id: 'BG12BUIN12341234567893', currency: 'EUR', balance: '2345.00' }
-  ]
-});
+import { mock } from '../../App';
 
 const Transaction = () => {
 
@@ -36,23 +25,7 @@ const Transaction = () => {
     if(id !== '') {
       setMockCurrency(accounts[id].currency);
     }
-    console.log("mockCurrency on ID change:");
-    console.log(mockCurrency);
   }, [id]);
-
-  useEffect(() => {
-    dispatch(loadAccounts());
-  }, []);
-
-  useEffect(() => { // Debug
-    console.log('useEffect accounts');
-    console.log(accounts);
-  }, [accounts]);
-
-  useEffect(() => { // Debug
-    console.log('useEffect mockCurrency:');
-    console.log(mockCurrency);
-  },[mockCurrency]);
 
   mock.onPut('/accounts', { id: id, balance: (Number(balance) + Number(amount)).toFixed(2).toString()})
     .reply(204, {
@@ -86,8 +59,6 @@ const Transaction = () => {
     if(idPatternTest && amountPatternTest && transactionTypePatternTest) {
       dispatch(submitTransaction(id, amount, transactionType, balance))
         .then(response => {
-          console.log('Mock currency on submit');
-          console.log(mockCurrency);
           if(response.status >= 200 && response.status < 300) {
             setBalance(response.data.balance);
           }

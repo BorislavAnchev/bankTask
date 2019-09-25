@@ -1,19 +1,6 @@
 import { TYPES } from './types';
-import { loadAccounts, loadAccountsSuccess } from './actions'
+import { loadAccountsSuccess } from './actions'
 import accountsReducer from './reducers';
-import { mapKeys } from 'lodash'; // Unused, may delete later.
-const axios = require('axios');
-const MockAdapter = require('axios-mock-adapter');
-
-const mock = new MockAdapter(axios);
-
-mock.onGet('/accounts').reply(200, {
-  accounts: [
-    { id: 'BG12BUIN12341234567891', currency: 'BGN', balance: '5678.00' },
-    { id: 'BG12BUIN12341234567892', currency: 'USD', balance: '3456.00' },
-    { id: 'BG12BUIN12341234567893', currency: 'EUR', balance: '2345.00' }
-  ]
-});
 
 describe('Accounts reducer', () => {
   it('should return the default state', () => {
@@ -108,7 +95,6 @@ describe('Accounts reducer', () => {
       }
     }
     const newState = accountsReducer(undefined, loadAccountsSuccess(fakeResponse.data.accounts));
-    console.log(newState);
     expect(newState).toEqual(expectedState);
   });
 });

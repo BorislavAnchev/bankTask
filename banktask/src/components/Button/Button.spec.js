@@ -15,6 +15,15 @@ describe('The button component', () => {
       const propsError = checkProps(Button, expectedProps);
       expect(propsError).toBeUndefined();
     });
+
+    it('Should throw a warning', () => {
+      const expectedProps = {
+        buttonText: 35,
+        onClick: 'Not a function'
+      };
+      const propsError = checkProps(Button, expectedProps);
+      expect(propsError).toBeTruthy();
+    });
   });
 
   describe('Renders', () => {

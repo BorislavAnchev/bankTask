@@ -1,6 +1,5 @@
 import { TYPES } from './types';
-import { combineReducers } from 'redux';
-import { mapKeys } from 'lodash';
+import mapKeys from 'lodash/mapKeys';
 
 const accounts = (state = {}, action) => {
   switch(action.type) {

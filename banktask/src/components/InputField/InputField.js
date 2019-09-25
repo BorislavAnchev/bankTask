@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import './styles.scss';
 
 const InputField = ({ type, className, value, onChange, placeholder }) => {
 
@@ -10,8 +9,8 @@ const InputField = ({ type, className, value, onChange, placeholder }) => {
 }
 
 InputField.propTypes = {
-    type: PropTypes.string,
-    className: PropTypes.string,
+    type: PropTypes.string.isRequired,
+    className: PropTypes.string.isRequired,
     value: PropTypes.string,
     onChange: PropTypes.func,
     placeholder: PropTypes.string
