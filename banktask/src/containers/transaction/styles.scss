@@ -1,0 +1,45 @@
+$danger: #dc3545;
+$clouway-blue: #0074A3;
+
+.accounts-dropdown {
+  width: 20%;
+  max-width: 300px;
+  margin: auto;
+}
+
+.transaction-dropdown {
+  width: 10%;
+  max-width: 100px;
+  margin: auto;
+}
+
+.money-input {
+  margin: 10px auto;
+  display: block;
+}
+
+.submit { // May be useless?
+  display: block;
+  margin: 10px auto; // Top and bottom margins - 100px, horizontally centered.
+}
+
+button { // Useless? To be deleted.
+  display: block; 
+  margin: 10px auto;
+}
+
+.warning {
+  text-align: center;
+  color: $danger;
+  margin: 10px auto;
+}
+
+.balance-section {
+  text-align: center;
+  color: $clouway-blue;
+}
+
+.submit-warning {
+  text-align: center;
+  color: $danger;
+}
