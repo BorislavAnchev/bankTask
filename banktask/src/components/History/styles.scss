@@ -26,13 +26,13 @@ thead {
 }
 
 .credit {
-  color: green;
+  color: $danger;
   width: 200px;
 }
 
 .debit {
   width: 200px;
-  color: $danger;
+  color: green;
 }
 
 .date {

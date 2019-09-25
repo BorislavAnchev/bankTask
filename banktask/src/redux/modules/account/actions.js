@@ -46,3 +46,22 @@ export const deleteAccount = (id) => {
     }
   }
 }
+
+export const createAccount = (iban, currency) => {
+  return {
+    type: TYPES.CREATE_ACCOUNT,
+    payload: {
+      request: {
+        method: 'post',
+        url: '/accounts',
+        data: {
+          iban,
+          currency
+        }
+      }
+    },
+    meta: {
+      alert: 'Account created successfully!'
+    }
+  }
+}

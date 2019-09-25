@@ -1,18 +1,28 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { findByTestAttribute, checkProps } from '../../../utils';
+import { findByTestAttribute, checkProps } from '../../utils';
 import History from './History';
 
 describe('The history component', () => {
-//   describe('Checking PropTypes', () => {
-//     it('Should not throw a warning', () => { // Add a case with wrong props
-//       const expectedProps = {
-//         history: [],
-//       };
-//       const propsError = checkProps(History, expectedProps);
-//       expect(propsError).toBeUndefined();
-//     });
-//   });
+  describe('Checking PropTypes', () => {
+    it('Should not throw a warning', () => {
+      const expectedProps = {
+        history: [],
+        'data-testid': 'History Component'
+      };
+      const propsError = checkProps(History, expectedProps);
+      expect(propsError).toBeUndefined();
+    });
+
+    it('Should throw a warning in the browser console', () => {
+      const expectedProps = {
+        history: 'text',
+        'data-testid': 23
+      };
+      const propsError = checkProps(History, expectedProps);
+      expect(propsError).toBeTruthy();
+    });
+  });
 
   describe('Renders', () => {
     
@@ -33,7 +43,8 @@ describe('The history component', () => {
 
     beforeEach(() => {
       const props = {
-        history: fakeHistory
+        history: fakeHistory,
+        'data-testid': 'History Component'
       };
       wrapper = shallow(<History {...props} />);
     });

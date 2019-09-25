@@ -1,5 +1,5 @@
 import React from 'react';
-import { MemoryRouter } from 'react-router-dom';
+import { Link, MemoryRouter } from 'react-router-dom';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import { findByTestAttribute, testStore } from '../../utils';
@@ -22,15 +22,94 @@ describe('Transaction component ', () => {
             id: '_u70nyuzcq',
             iban: 'BG12BUIN12341234567891',
             currency: 'BGN',
-            balance: '5678.00'
+            balance: '5678.00',
+            history: [
+              {
+                date: '05.01.2018',
+                debit: '500.00',
+                credit: ''
+              },
+              {
+                date: '05.02.2018',
+                debit: '500.00',
+                credit: ''
+              },
+              {
+                date: '05.03.2018',
+                debit: '500.00',
+                credit: ''
+              },
+              {
+                date: '05.04.2018',
+                debit: '500.00',
+                credit: ''
+              },
+              {
+                date: '05.05.2018',
+                debit: '500.00',
+                credit: ''
+              },
+              {
+                date: '05.06.2018',
+                debit: '500.00',
+                credit: ''
+              },
+              {
+                date: '05.07.2018',
+                debit: '500.00',
+                credit: ''
+              },
+              {
+                date: '05.08.2018',
+                debit: '500.00',
+                credit: ''
+              },
+              {
+                date: '05.09.2018',
+                debit: '500.00',
+                credit: ''
+              },
+              {
+                date: '05.10.2018',
+                debit: '500.00',
+                credit: ''
+              }
+            ]
           },
           _wi2ozmsx9: {
             id: '_wi2ozmsx9',
             iban: 'BG12BUIN12341234567892',
             currency: 'USD',
-            balance: '3456.00'
+            balance: '3456.00',
+            history: [
+              {
+                date: '05.01.2019',
+                debit: '500.00',
+                credit: ''
+              },
+              {
+                date: '06.01.2019',
+                debit: '',
+                credit: '500.00'
+              },
+              {
+                date: '05.02.2019',
+                debit: '500.00',
+                credit: ''
+              },
+              {
+                date: '06.02.2019',
+                debit: '',
+                credit: '500.00'
+              },
+              {
+                date: '05.03.2019',
+                debit: '500.00',
+                credit: ''
+              },
+            ]
           },
-          _bousuqei6: { id: '_bousuqei6', iban: 'BG12BUIN12341234567893', currency: 'EUR', balance: '2345.00' }
+          _bousuqei6: { id: '_bousuqei6', iban: 'BG12BUIN12341234567893', currency: 'EUR', balance: '2345.00', history: [] }
         }
       };
       wrapper = setUp(initialState);
@@ -122,5 +201,23 @@ describe('Transaction component ', () => {
         fireEvent.click(getByTestId('deleteButtonComponent Primitive'), { button: 1 });
         expect(getByTestId('submitWarning').textContent).toBe('Please select an account to delete!');
       });
+    });
+    
+
+    it('Should render an "Add Account" button component', () => {
+      const addAccountButton = findByTestAttribute(wrapper, 'Add Button')
+      expect(addAccountButton.length).toBe(1);
+      expect(addAccountButton.props().buttonText).toBe('Add an account');
+    });
+
+    it('Should render an "Add Account" page link component with correct props', () => {
+      const addAccountLink = wrapper.find(Link);
+      expect(addAccountLink.length).toBe(1);
+      expect(addAccountLink.props().to).toBe('/create');
+    });
+
+    it('Should contain a current balance paragraph', () => {
+      const historySection = findByTestAttribute(wrapper, 'History Component');
+      expect(historySection.length).toBe(1);
     });
   });

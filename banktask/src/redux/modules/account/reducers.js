@@ -1,16 +1,6 @@
 import { TYPES } from './types';
-<<<<<<< 9746253361bfb0d1c6cad622e58bed5bcf349f2c
-<<<<<<< 89fc953aab5363a0ba1a38a3d03ea61e86ad1800
 import mapKeys from 'lodash/mapKeys';
 import omit from 'lodash/omit';
-=======
-import { combineReducers } from 'redux';
-import { mapKeys, omit } from 'lodash';
->>>>>>> bank: account delete functionality
-=======
-import mapKeys from 'lodash/mapKeys';
-import omit from 'lodash/omit';
->>>>>>> bank: create account and history functionality
 
 const accounts = (state = {}, action) => {
   switch(action.type) {
@@ -21,21 +11,13 @@ const accounts = (state = {}, action) => {
         ...state,
         [action.payload.id]: action.payload
       };
-<<<<<<< 89fc953aab5363a0ba1a38a3d03ea61e86ad1800
     case TYPES.DELETE_ACCOUNT_SUCCESS:
       return omit(state, action.payload.id);
-=======
-    case TYPES.DELETE_ACCOUNT:
-      return omit(state, action.payload);
-<<<<<<< 4f6589fee7b86c869775285d7c721b7c564ee972
->>>>>>> bank: account delete functionality
-=======
-    case TYPES.CREATE_ACCOUNT:
+    case TYPES.CREATE_ACCOUNT_SUCCESS:
       return {
         ...state,
         [action.payload.id]: action.payload
       }
->>>>>>> bank: create account functionality
     default:
       return state;
   }  

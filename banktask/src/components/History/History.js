@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './styles.scss';
 
-const History = ({history}) => {
+const History = ({history, 'data-testid': dataTestId}) => {
   const rows = history.map((row, index) => {
     return (
       <tr key={index}>
@@ -14,15 +14,15 @@ const History = ({history}) => {
   })
   
   return (
-    <div className='container' data-test='History Container Div'>
-      <table data-test='Table Primitive'>
-        <thead data-test='Table Head Primitive'>
-          <td data-test='Date Column Header'>Date</td>
-          <td data-test='Withdraw Column Header'>Credit</td>
-          <td data-test='Deposit Column Header'>Debit</td>
+    <div className='container' data-testid={`${dataTestId} Primitive`}>
+      <table data-testid='Table Primitive'>
+        <thead data-testid='Table Head Primitive'>
+          <td data-testid='Date Column Header'>Date</td>
+          <td data-testid='Deposit Column Header'>Debit</td>
+          <td data-testid='Withdraw Column Header'>Credit</td>
         </thead>
 
-        <tbody data-test='Table Body Primitive'>
+        <tbody data-testid='Table Body Primitive'>
          {rows}
         </tbody>
       </table>
@@ -31,7 +31,8 @@ const History = ({history}) => {
 }
 
 History.propTypes = {
-  history: PropTypes.array
+  history: PropTypes.array.isRequired,
+  'data-testid': PropTypes.string.isRequired
 };
 
 export default History;

@@ -23,7 +23,7 @@ describe('The input field component', () => {
         type: 'text',
         className: 35,
         value: undefined,
-        onChange: () => { console.log('Input field test function') },
+        onChange: () => { },
         placeholder: 'Demo placeholder',
         'data-testid': 35
       };

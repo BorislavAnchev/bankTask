@@ -6,41 +6,38 @@ import InputField from '../../components/InputField/InputField';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import './styles.scss';
-import { createAccountRequest } from '../../redux/modules/account/actions';
-import { mock } from '../../App';
+import { createAccount } from '../../redux/modules/account/actions';
 
 const CreateAccount = () => {
 
   const dispatch = useDispatch();
-  const [id, setId] = useState('');
+  const [iban, setIban] = useState('');
   const [currency, setCurrency] = useState('');
   const [addAccountWarning, setAddAccountWarning] = useState('');
   const accounts = useSelector((state) => state.accounts);
 
-  mock.onPost('/accounts', { id: id, currency: currency }).reply(200, { id: id, currency: currency, balance: '0.00' });
-
   const currencyOptions = ['BGN', 'USD', 'EUR'];
 
-  let idIsFree = true;
+  let ibanIsFree = true;
 
-  const handleAddAccount = (id, currency) => {
-    let idPatternTest = (/^BG\d{2}BUIN\d{14}$/).test(id);
+  const handleAddAccount = (iban, currency) => {
+    let ibanPatternTest = (/^BG\d{2}BUIN\d{14}$/).test(iban);
     let currencyPatternTest = (/^(BGN)$|^(USD)$|^(EUR)$/).test(currency);
     
-    Object.keys(accounts).forEach((key) => {
-      if(key === id) {
-        idIsFree = false;
+    Object.values(accounts).forEach((value) => {
+      if(value.iban === iban) {
+        ibanIsFree = false;
       }
     });
 
-    if(idPatternTest && currencyPatternTest && idIsFree) {
-      dispatch(createAccountRequest(id, currency));
+    if(ibanPatternTest && currencyPatternTest && ibanIsFree) {
+      dispatch(createAccount(iban, currency));
       setAddAccountWarning('');
-      setId('');
+      setIban('');
       setCurrency('');
     }
     else {
-      if(idIsFree === false) { setAddAccountWarning('This account ID is already taken!'); }
+      if(ibanIsFree === false) { setAddAccountWarning('This account IBAN is already taken!'); }
       else { setAddAccountWarning('Please fill in the form correctly!'); }
     }
   }
@@ -50,21 +47,21 @@ const CreateAccount = () => {
       <InputField
         type='text'
         className='account-name-input'
-        value={id}
-        onChange={(event) => setId(event.target.value)}
-        data-test='Account ID field'
-        placeholder='Choose an account ID' />
-        <p className='account-explanation' data-test='Example ID paragraph'>Example: BG23BUIN45678901234567</p>
+        value={iban}
+        onChange={(event) => setIban(event.target.value)}
+        data-testid='Account IBAN field'
+        placeholder='Choose an IBAN' />
+        <p className='account-explanation' data-testid='Example IBAN paragraph'>Example: BG23BUIN45678901234567</p>
       <Dropdown
         className='currency-dropdown'
         value={currency}
         options={currencyOptions}
         onChange={(event) => setCurrency(event.value)}
         placeholder="Select a currency"
-        data-test='Currency Selector' />
-      <Button buttonText='Add' onClick={() => handleAddAccount(id, currency)} data-test='Create Page Add Account Button Component'/>
-      <Link className="back" to="/"><Button buttonText='Back'/></Link>
-      <p className='validation-warning'>{addAccountWarning}</p>
+        data-testid='Currency Selector' />
+      <Button buttonText='Add' onClick={() => handleAddAccount(iban, currency)} data-testid='Create Page Add Account Button'/>
+      <Link className="back" to="/"><Button buttonText='Back' data-testid='Create_Back Button'/></Link>
+      <p className='validation-warning' data-testid='validation-warning'>{addAccountWarning}</p>
     </div>
   )
 }

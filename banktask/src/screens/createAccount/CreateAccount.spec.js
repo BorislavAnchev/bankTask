@@ -2,8 +2,9 @@ import React from 'react';
 import { Link, MemoryRouter } from 'react-router-dom';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
-import { findByTestAttribute, testStore } from '../../../utils';
+import { findByTestAttribute, testStore } from '../../utils';
 import CreateAccount from './CreateAccount';
+import { fireEvent, render, cleanup } from '@testing-library/react';
 
 const setUp = (initialState = {}) => {
   const store = testStore(initialState);
@@ -16,8 +17,9 @@ describe('Create account component', () => {
   beforeEach(() => {
     const initialState = {
       accounts: {
-        BG12BUIN12341234567891: {
-          id: 'BG12BUIN12341234567891',
+        u70nyuzcq: {
+          id: 'u70nyuzcq',
+          iban: 'BG12BUIN12341234567891',
           currency: 'BGN',
           balance: '5678.00',
           history: [
@@ -73,8 +75,9 @@ describe('Create account component', () => {
             }
           ]
         },
-        BG12BUIN12341234567892: {
-          id: 'BG12BUIN12341234567892',
+        wi2ozmsx9: {
+          id: 'wi2ozmsx9',
+          iban: 'BG12BUIN12341234567892',
           currency: 'USD',
           balance: '3456.00',
           history: [
@@ -105,8 +108,9 @@ describe('Create account component', () => {
             },
           ]
         },
-        BG12BUIN12341234567893: {
-          id: 'BG12BUIN12341234567893',
+        bousuqei6: {
+          id: 'bousuqei6',
+          iban: 'BG12BUIN12341234567893',
           currency: 'EUR',
           balance: '2345.00',
           history: []
@@ -116,13 +120,15 @@ describe('Create account component', () => {
     wrapper = setUp(initialState);
   });
 
-  it('Should render an account ID input field component', () => {
-    const idInput = findByTestAttribute(wrapper, 'Account ID field');
+  afterEach(cleanup);
+
+  it('Should render an account IBAN input field component', () => {
+    const idInput = findByTestAttribute(wrapper, 'Account IBAN field');
     expect(idInput.length).toBe(1);
   });
 
-  it('Should render an example account ID paragraph', () => {
-    const exampleId = findByTestAttribute(wrapper, 'Example ID paragraph');
+  it('Should render an example account IBAN paragraph', () => {
+    const exampleId = findByTestAttribute(wrapper, 'Example IBAN paragraph');
     expect(exampleId.length).toBe(1);
   });
 
@@ -132,13 +138,29 @@ describe('Create account component', () => {
   });
 
   it('Should render an "Add" button component', () => {
-    const CreatePageAddAccountButton = findByTestAttribute(wrapper, 'Create Page Add Account Button Component');
+    const CreatePageAddAccountButton = findByTestAttribute(wrapper, 'Create Page Add Account Button Primitive');
     expect(CreatePageAddAccountButton.length).toBe(1);
   });
 
-  it('Should render a "Back" button component', () => {
-    const backButtonLink = wrapper.find(Link);
-    expect(backButtonLink.length).toBe(1);
-    expect(backButtonLink.props().to).toBe('/');
+  describe('"Back" button', () => {
+    it('Should render the <Link>', () => {
+      const backButtonLink = wrapper.find(Link);
+      expect(backButtonLink.length).toBe(1);
+      expect(backButtonLink.props().to).toBe('/');
+    });
+
+    it('Should render the <Button> inside the <Link>', () => {
+      const backButton = findByTestAttribute(wrapper, 'Create_Back Button Primitive');
+      expect(backButton.length).toBe(1);
+    });
+  });
+
+  describe('Account create warning', () => {
+    it('Should warn about correct form submit', () => {
+      const { getByTestId } = render(<Provider store={testStore({})}><MemoryRouter><CreateAccount /></MemoryRouter></Provider>);
+      expect(getByTestId('validation-warning').textContent).toBe('');
+      fireEvent.click(getByTestId('Create Page Add Account Button Primitive'), { button: 1 });
+      expect(getByTestId('validation-warning').textContent).toBe('Please fill in the form correctly!');
+    });
   });
 });

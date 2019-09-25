@@ -2,7 +2,8 @@ import { TYPES } from './types';
 import {
     loadAccounts,
     updateAccount,
-    deleteAccount
+    deleteAccount,
+    createAccount
 } from './actions';
 
 describe('loadAccounts', () => {
@@ -64,34 +65,26 @@ describe('deleteAccount', () => {
   });
 });
 
-describe('deleteAccount', () => {
-  it('should return the correct action', () => {
-    const expectedAction = {
-      type: TYPES.DELETE_ACCOUNT,
-      payload: 'TestID'
-    }
-    expect(deleteAccount('TestID')).toEqual(expectedAction);
-  });
-});
-
 describe('createAccount', () => {
   it('should return the correct action', () => {
-    const fakeReply = {
-      id: 'Test ID',
-      currency: 'Test Currency',
-      balance: '0.00',
-      history: []
-    };
-    
-    const expectedAction = {
+    const mockIban = 'Test IBAN';
+    const mockCurrency = 'Test Currency';
+    const expectedAction =  {
       type: TYPES.CREATE_ACCOUNT,
       payload: {
-        id: 'Test ID',
-        currency: 'Test Currency',
-        balance: '0.00',
-        history: []
+        request: {
+          method: 'post',
+          url: '/accounts',
+          data: {
+            iban: mockIban,
+            currency: mockCurrency
+          }
+        }
+      },
+      meta: {
+        alert: 'Account created successfully!'
       }
     }
-    expect(createAccount(fakeReply)).toEqual(expectedAction);
+    expect(createAccount(mockIban, mockCurrency)).toEqual(expectedAction);
   });
 });
