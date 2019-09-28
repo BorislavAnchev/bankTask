@@ -18,14 +18,10 @@ $clouway-blue: #0074A3;
   display: block;
 }
 
-.submit { // May be useless?
-  display: block;
-  margin: 10px auto; // Top and bottom margins - 100px, horizontally centered.
-}
-
-button { // Useless? To be deleted.
+button {
   display: block; 
   margin: 10px auto;
+  width: 140px;
 }
 
 .warning {

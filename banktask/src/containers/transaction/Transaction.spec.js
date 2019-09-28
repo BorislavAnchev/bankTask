@@ -1,28 +1,35 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { MemoryRouter } from 'react-router-dom';
+import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
-import { findByTestAttribute, testStore, checkProps } from '../../../utils';
+import { findByTestAttribute, testStore } from '../../utils';
 import Transaction from './Transaction';
-// import configureStore from 'redux-mock-store';
 
 const setUp = (initialState = {}) => {
   const store = testStore(initialState);
-  const wrapper = mount(<Provider store={store}><Transaction /></Provider>); // Mount insdead of shallow with Provider arround solves the problem.
+  const wrapper = mount(<Provider store={store}><MemoryRouter><Transaction /></MemoryRouter></Provider>); // Mount insdead of shallow with Provider around solves the problem.
   return wrapper;
 }
 
 describe('Transaction component ', () => {
-// const initialState = {}; 
 
-//const mockStore = configureStore();
     let wrapper;
     beforeEach(() => {
-      //store = mockStore(initialState);
       const initialState = {
         accounts: {
-          BG12BUIN12341234567891: { id: 'BG12BUIN12341234567891', currency: 'BGN', balance: '5678.00' },
-          BG12BUIN12341234567892: { id: 'BG12BUIN12341234567892', currency: 'USD', balance: '3456.00' },
-          BG12BUIN12341234567893: { id: 'BG12BUIN12341234567893', currency: 'EUR', balance: '2345.00' }
+          _u70nyuzcq: {
+            id: '_u70nyuzcq',
+            iban: 'BG12BUIN12341234567891',
+            currency: 'BGN',
+            balance: '5678.00'
+          },
+          _wi2ozmsx9: {
+            id: '_wi2ozmsx9',
+            iban: 'BG12BUIN12341234567892',
+            currency: 'USD',
+            balance: '3456.00'
+          },
+          _bousuqei6: { id: '_bousuqei6', iban: 'BG12BUIN12341234567893', currency: 'EUR', balance: '2345.00' }
         }
       };
       wrapper = setUp(initialState);
@@ -50,6 +57,7 @@ describe('Transaction component ', () => {
     it('Should contain a money amount input field component', () => {
       const moneyInput = findByTestAttribute(wrapper, 'Money Input field');
       expect(moneyInput.length).toBe(1);
+      expect(moneyInput.props().placeholder).toBe('Format: 500.00');
     });
 
     it('Should contain a current balance paragraph', () => {

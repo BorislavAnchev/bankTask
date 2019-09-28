@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { findByTestAttribute, checkProps } from '../../../utils';
+import { findByTestAttribute, checkProps } from '../../utils';
 import InputField from './InputField';
 
 describe('The input field component', () => {

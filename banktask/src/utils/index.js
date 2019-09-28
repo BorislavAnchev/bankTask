@@ -1,6 +1,6 @@
 import checkPropTypes from 'check-prop-types';
 import { applyMiddleware, createStore } from 'redux';
-import { rootReducer, middlewares } from '../src/redux/rootReducer';
+import { rootReducer, middlewares } from '../redux/rootReducer';
 
 export const findByTestAttribute = (component, attribute) => {
   const wrapper = component.find(`[data-test='${attribute}']`);

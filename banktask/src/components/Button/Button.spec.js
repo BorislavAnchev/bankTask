@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { findByTestAttribute, checkProps } from '../../../utils';
+import { findByTestAttribute, checkProps } from '../../utils';
 import Button from './Button';
 
 describe('The button component', () => {
