@@ -1,10 +1,10 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
-import ReduxThunk from 'redux-thunk';
+import { handleHttpRequestsFlow } from './middlewares/axios';
 import accounts from './modules/account/reducers';
 
 export const rootReducer = combineReducers({accounts});
 
-export const middlewares = [ReduxThunk];
+export const middlewares = [handleHttpRequestsFlow];
 
 export const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore);
 

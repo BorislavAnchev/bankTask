@@ -4,9 +4,9 @@ import Logo from '../../assets/graphics/logo.jpg';
 
 const Header = (props) => {
   return (
-    <header data-test='headerComponent'>
+    <header data-testid='headerComponent'>
       <div className='logo'>
-        <img data-test='logoIMG' className='LogoTest' src={Logo} alt='Logo' />
+        <img data-testid='logoIMG' className='LogoTest' src={Logo} alt='Logo' />
       </div>
     </header>
   )
