@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import InputField from '../../components/InputField/InputField';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import './styles.scss';
 import { deleteAccount, updateAccount } from '../../redux/modules/account/actions';
+import History from '../../components/History/History';
 
 const Transaction = () => {
 
@@ -90,12 +92,18 @@ const Transaction = () => {
               onClick={() => handleSubmit(id, amount, transactionType)}
               data-testid='buttonComponentParent'
               buttonText='Submit' />
+            <Link className="addAccount" to="/create" data-testid='Add account page link'>
+              <Button
+                data-testid='Add Button'
+                buttonText='Add an account' />
+            </Link>
             <Button 
               onClick={onDeleteClick}
               data-testid='deleteButtonComponent'
               buttonText='Delete Account'/>
             <p className='balance-section' data-testid='currentBalance'>Current balance: {(/_\w{9}/).test(id) ? accounts[id].balance : ''} </p>
             <p className='submit-warning' data-testid='submitWarning'>{submitWarning}</p>
+            <History history={(/_\w{9}/).test(id) ? accounts[id].history : []} data-testid='History Component'/>
         </div>
     );
 }

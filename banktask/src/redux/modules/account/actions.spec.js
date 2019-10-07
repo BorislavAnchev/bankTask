@@ -2,7 +2,8 @@ import { TYPES } from './types';
 import {
     loadAccounts,
     updateAccount,
-    deleteAccount
+    deleteAccount,
+    createAccount
 } from './actions';
 
 describe('loadAccounts', () => {
@@ -61,5 +62,29 @@ describe('deleteAccount', () => {
       }
     }
     expect(deleteAccount('TestID')).toEqual(expectedAction);
+  });
+});
+
+describe('createAccount', () => {
+  it('should return the correct action', () => {
+    const mockIban = 'Test IBAN';
+    const mockCurrency = 'Test Currency';
+    const expectedAction =  {
+      type: TYPES.CREATE_ACCOUNT,
+      payload: {
+        request: {
+          method: 'post',
+          url: '/accounts',
+          data: {
+            iban: mockIban,
+            currency: mockCurrency
+          }
+        }
+      },
+      meta: {
+        alert: 'Account created successfully!'
+      }
+    }
+    expect(createAccount(mockIban, mockCurrency)).toEqual(expectedAction);
   });
 });

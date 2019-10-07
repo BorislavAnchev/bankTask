@@ -22,7 +22,6 @@ describe('The button component', () => {
         buttonText: 35,
         onClick: 'Not a function',
         'data-testid': 35
-
       };
       const propsError = checkProps(Button, expectedProps);
       expect(propsError).toBeTruthy();

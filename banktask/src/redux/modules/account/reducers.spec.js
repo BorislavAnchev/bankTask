@@ -16,19 +16,99 @@ describe('Accounts reducer', () => {
               id: '_u70nyuzcq',
               iban: 'BG12BUIN12341234567891',
               currency: 'BGN',
-              balance: '5678.00'
+              balance: '5678.00',
+              history: [
+                {
+                  date: '05.01.2018',
+                  debit: '500.00',
+                  credit: ''
+                },
+                {
+                  date: '05.02.2018',
+                  debit: '500.00',
+                  credit: ''
+                },
+                {
+                  date: '05.03.2018',
+                  debit: '500.00',
+                  credit: ''
+                },
+                {
+                  date: '05.04.2018',
+                  debit: '500.00',
+                  credit: ''
+                },
+                {
+                  date: '05.05.2018',
+                  debit: '500.00',
+                  credit: ''
+                },
+                {
+                  date: '05.06.2018',
+                  debit: '500.00',
+                  credit: ''
+                },
+                {
+                  date: '05.07.2018',
+                  debit: '500.00',
+                  credit: ''
+                },
+                {
+                  date: '05.08.2018',
+                  debit: '500.00',
+                  credit: ''
+                },
+                {
+                  date: '05.09.2018',
+                  debit: '500.00',
+                  credit: ''
+                },
+                {
+                  date: '05.10.2018',
+                  debit: '500.00',
+                  credit: ''
+                }
+              ]
             },
             {
               id: '_wi2ozmsx9',
               iban: 'BG12BUIN12341234567892',
               currency: 'USD',
-              balance: '3456.00'
+              balance: '3456.00',
+              history: [
+                {
+                  date: '05.01.2019',
+                  debit: '500.00',
+                  credit: ''
+                },
+                {
+                  date: '06.01.2019',
+                  debit: '',
+                  credit: '500.00'
+                },
+                {
+                  date: '05.02.2019',
+                  debit: '500.00',
+                  credit: ''
+                },
+                {
+                  date: '06.02.2019',
+                  debit: '',
+                  credit: '500.00'
+                },
+                {
+                  date: '05.03.2019',
+                  debit: '500.00',
+                  credit: ''
+                },
+              ]
             },
             {
               id: '_bousuqei6',
               iban: 'BG12BUIN12341234567893',
               currency: 'EUR',
-              balance: '2345.00'
+              balance: '2345.00',
+              history: []
             }
           ]
         }
@@ -38,19 +118,99 @@ describe('Accounts reducer', () => {
           id: '_u70nyuzcq',
           iban: 'BG12BUIN12341234567891',
           currency: 'BGN',
-          balance: '5678.00'
+          balance: '5678.00',
+          history: [
+            {
+              date: '05.01.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.02.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.03.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.04.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.05.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.06.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.07.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.08.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.09.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.10.2018',
+              debit: '500.00',
+              credit: ''
+            }
+          ]
         },
         _wi2ozmsx9: {
           id: '_wi2ozmsx9',
           iban: 'BG12BUIN12341234567892',
           currency: 'USD',
-          balance: '3456.00'
+          balance: '3456.00',
+          history: [
+            {
+              date: '05.01.2019',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '06.01.2019',
+              debit: '',
+              credit: '500.00'
+            },
+            {
+              date: '05.02.2019',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '06.02.2019',
+              debit: '',
+              credit: '500.00'
+            },
+            {
+              date: '05.03.2019',
+              debit: '500.00',
+              credit: ''
+            },
+          ]
         },
         _bousuqei6: {
           id: '_bousuqei6',
           iban: 'BG12BUIN12341234567893',
           currency: 'EUR',
-          balance: '2345.00'          
+          balance: '2345.00',
+          history: []
         }
       }
       const newState = accountsReducer(undefined, {
@@ -68,19 +228,99 @@ describe('Accounts reducer', () => {
           id: '_u70nyuzcq',
           iban: 'BG12BUIN12341234567891',
           currency: 'BGN',
-          balance: '5678.00'
+          balance: '5678.00',
+          history: [
+            {
+              date: '05.01.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.02.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.03.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.04.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.05.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.06.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.07.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.08.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.09.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.10.2018',
+              debit: '500.00',
+              credit: ''
+            }
+          ]
         },
         _wi2ozmsx9: {
           id: '_wi2ozmsx9',
           iban: 'BG12BUIN12341234567892',
           currency: 'USD',
-          balance: '3456.00'
+          balance: '3456.00',
+          history: [
+            {
+              date: '05.01.2019',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '06.01.2019',
+              debit: '',
+              credit: '500.00'
+            },
+            {
+              date: '05.02.2019',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '06.02.2019',
+              debit: '',
+              credit: '500.00'
+            },
+            {
+              date: '05.03.2019',
+              debit: '500.00',
+              credit: ''
+            },
+          ]
         },
         _bousuqei6: {
           id: '_bousuqei6',
           iban: 'BG12BUIN12341234567893',
           currency: 'EUR',
-          balance: '2345.00'
+          balance: '2345.00',
+          history: []
         }
       };
       const expectedState = {
@@ -88,13 +328,41 @@ describe('Accounts reducer', () => {
           id: '_wi2ozmsx9',
           iban: 'BG12BUIN12341234567892',
           currency: 'USD',
-          balance: '3456.00'
+          balance: '3456.00',
+          history: [
+            {
+              date: '05.01.2019',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '06.01.2019',
+              debit: '',
+              credit: '500.00'
+            },
+            {
+              date: '05.02.2019',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '06.02.2019',
+              debit: '',
+              credit: '500.00'
+            },
+            {
+              date: '05.03.2019',
+              debit: '500.00',
+              credit: ''
+            },
+          ]
         },
         _bousuqei6: {
           id: '_bousuqei6',
           iban: 'BG12BUIN12341234567893',
           currency: 'EUR',
-          balance: '2345.00'
+          balance: '2345.00',
+          history: []
         }
       };
       const mockAction = {
@@ -110,6 +378,233 @@ describe('Accounts reducer', () => {
       expect(expectedState).toEqual(newState);
     });
   });
+
+  describe('case: TYPES.CREATE_ACCOUNT', () => {
+    it('Should add hte newly created account to the state', () => {
+      const fakeInitialState = {
+        _u70nyuzcq: {
+          id: '_u70nyuzcq',
+          iban: 'BG12BUIN12341234567891',
+          currency: 'BGN',
+          balance: '5678.00',
+          history: [
+            {
+              date: '05.01.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.02.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.03.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.04.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.05.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.06.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.07.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.08.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.09.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.10.2018',
+              debit: '500.00',
+              credit: ''
+            }
+          ]
+        },
+        _wi2ozmsx9: {
+          id: '_wi2ozmsx9',
+          iban: 'BG12BUIN12341234567892',
+          currency: 'USD',
+          balance: '3456.00',
+          history: [
+            {
+              date: '05.01.2019',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '06.01.2019',
+              debit: '',
+              credit: '500.00'
+            },
+            {
+              date: '05.02.2019',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '06.02.2019',
+              debit: '',
+              credit: '500.00'
+            },
+            {
+              date: '05.03.2019',
+              debit: '500.00',
+              credit: ''
+            },
+          ]
+        },
+        _bousuqei6: {
+          id: '_bousuqei6',
+          iban: 'BG12BUIN12341234567893',
+          currency: 'EUR',
+          balance: '2345.00',
+          history: []
+        }
+      };
+      const expectedState = {
+        _u70nyuzcq: {
+          id: '_u70nyuzcq',
+          iban: 'BG12BUIN12341234567891',
+          currency: 'BGN',
+          balance: '5678.00',
+          history: [
+            {
+              date: '05.01.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.02.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.03.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.04.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.05.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.06.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.07.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.08.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.09.2018',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '05.10.2018',
+              debit: '500.00',
+              credit: ''
+            }
+          ]
+        },
+        _wi2ozmsx9: {
+          id: '_wi2ozmsx9',
+          iban: 'BG12BUIN12341234567892',
+          currency: 'USD',
+          balance: '3456.00',
+          history: [
+            {
+              date: '05.01.2019',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '06.01.2019',
+              debit: '',
+              credit: '500.00'
+            },
+            {
+              date: '05.02.2019',
+              debit: '500.00',
+              credit: ''
+            },
+            {
+              date: '06.02.2019',
+              debit: '',
+              credit: '500.00'
+            },
+            {
+              date: '05.03.2019',
+              debit: '500.00',
+              credit: ''
+            },
+          ]
+        },
+        _bousuqei6: {
+          id: '_bousuqei6',
+          iban: 'BG12BUIN12341234567893',
+          currency: 'EUR',
+          balance: '2345.00',
+          history: []
+        },
+        TestID: {
+          id: 'TestID',
+          iban: 'TestIBAN',
+          currency: 'USD',
+          balance: '0.00',
+          history: []
+        }
+      };
+      const mockAction = {
+        type: TYPES.CREATE_ACCOUNT_SUCCESS,
+        payload: {
+          id: 'TestID',
+          iban: 'TestIBAN',
+          currency: 'USD',
+          balance: '0.00',
+          history: []
+        },
+        meta: {
+          alert: 'Account created successfully!'
+        }
+      }
+      const newState = accountsReducer(fakeInitialState, mockAction);
+      expect(expectedState).toEqual(newState);
+    });
+  });
   
   describe('case: TYPES.UPDATE_ACCOUNT', () => {
     it('Should update the specified account correctly', () => {
@@ -118,7 +613,8 @@ describe('Accounts reducer', () => {
           id: '_bousuqei6',
           iban: 'BG12BUIN12341234567893',
           currency: 'EUR',
-          balance: '2345.00'
+          balance: '2345.00',
+          history: []
         }
       };
       const expectedState = {
@@ -126,7 +622,14 @@ describe('Accounts reducer', () => {
           id: '_bousuqei6',
           iban: 'BG12BUIN12341234567893',
           currency: 'EUR',
-          balance: '2645.00'
+          balance: '2645.00',
+          history: [
+            {
+              date: '05.09.2018',
+              debit: '300.00',
+              credit: ''
+            }
+          ]
         }
       }
       const mockAction = {
@@ -135,7 +638,14 @@ describe('Accounts reducer', () => {
           id: '_bousuqei6',            
           iban: 'BG12BUIN12341234567893',
           currency: 'EUR',
-          balance: '2645.00'
+          balance: '2645.00',
+          history: [
+            {
+              date: '05.09.2018',
+              debit: '300.00',
+              credit: ''
+            }
+          ]
         }
       }
       const newState = accountsReducer(fakeInitialState, mockAction);

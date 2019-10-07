@@ -13,6 +13,11 @@ const accounts = (state = {}, action) => {
       };
     case TYPES.DELETE_ACCOUNT_SUCCESS:
       return omit(state, action.payload.id);
+    case TYPES.CREATE_ACCOUNT_SUCCESS:
+      return {
+        ...state,
+        [action.payload.id]: action.payload
+      }
     default:
       return state;
   }  
