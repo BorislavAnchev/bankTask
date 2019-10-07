@@ -5,7 +5,6 @@ import Header from './components/Header/Header';
 import Transaction from './screens/transaction/Transaction';
 import CreateAccount from './screens/createAccount/CreateAccount';
 import { loadAccounts } from './redux/modules/account/actions';
->>>>>>> bank: create account and history functionality
 
 const App = () => {
   
@@ -20,6 +19,7 @@ const App = () => {
       <div className="App">
         <Header data-test='Header Component'/>
         <Route exact path='/' render={() => <Transaction />} data-testid='Transaction Page Route' />
+        <Route exact path='/create' render={(props) => <CreateAccount {...props}/>} data-testid='Create Account Page Route' />
       </div>
     </BrowserRouter>
   );
