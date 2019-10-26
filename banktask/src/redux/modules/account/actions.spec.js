@@ -13,7 +13,7 @@ describe('loadAccounts', () => {
       payload: {
         request: {
           method: 'get',
-          url: '/accounts',
+          url: 'http://localhost:3000/accounts',
         }
       }
     }
@@ -30,8 +30,8 @@ describe('updateAccount', () => {
       type: TYPES.UPDATE_ACCOUNT,
       payload: {
         request: {
-          method: 'put',
-          url: '/accounts',
+          method: 'patch',
+          url: 'http://localhost:3000/accounts',
           data: {
            id: mockId,
            amount: mockAmount,
@@ -51,8 +51,8 @@ describe('deleteAccount', () => {
       payload: {
         request: {
           method: 'delete',
-          url: '/accounts',
-          params: {
+          url: 'http://localhost:3000/accounts',
+          data: {
             id: 'TestID'
           }
         }
@@ -74,7 +74,7 @@ describe('createAccount', () => {
       payload: {
         request: {
           method: 'post',
-          url: '/accounts',
+          url: 'http://localhost:3000/accounts',
           data: {
             iban: mockIban,
             currency: mockCurrency

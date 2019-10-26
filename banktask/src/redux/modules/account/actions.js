@@ -6,7 +6,7 @@ export const loadAccounts = () => {
     payload: {
       request: {
         method: 'get',
-        url: '/accounts',
+        url: 'http://localhost:3001/accounts',
       }
     }
   }
@@ -17,8 +17,8 @@ export const updateAccount = (id, amount, transactionType) => {
     type: TYPES.UPDATE_ACCOUNT,
     payload: {
       request: {
-        method: 'put',
-        url: '/accounts',
+        method: 'patch',
+        url: 'http://localhost:3001/accounts',
         data: {
           id,
           amount,
@@ -35,8 +35,8 @@ export const deleteAccount = (id) => {
     payload: {
       request: {
         method: 'delete',
-        url: '/accounts',
-        params: {
+        url: 'http://localhost:3001/accounts',
+        data: {
           id
         }
       }
@@ -53,7 +53,7 @@ export const createAccount = (iban, currency) => {
     payload: {
       request: {
         method: 'post',
-        url: '/accounts',
+        url: 'http://localhost:3001/accounts',
         data: {
           iban,
           currency

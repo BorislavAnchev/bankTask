@@ -18,7 +18,7 @@ const Transaction = () => {
   const [warning, setWarning] = useState('');
   const [submitWarning, setSubmitWarning] = useState('');
   const accounts = useSelector((state) => state.accounts);
-  
+
   const accountOptions = Object.keys(accounts).map((key) => {return {value: key, label: accounts[key]['iban']}});
 
   const transactionOptions = ['Deposit', 'Withdraw'];
@@ -36,7 +36,7 @@ const Transaction = () => {
   }
 
   const handleSubmit = (id, amount, transactionType) => {
-    let idPatternTest = (/_\w{9}/).test(id);
+    let idPatternTest = (/\w{24}/).test(id);
     let amountPatternTest = (/^[0-9]+([.,][0-9]{0,2})?$/).test(amount);
     let transactionTypePatternTest = (/^(Deposit)$|^(Withdraw)$/).test(transactionType);
     if(idPatternTest && amountPatternTest && transactionTypePatternTest) {
@@ -51,7 +51,7 @@ const Transaction = () => {
   }
 
   const onDeleteClick = () => {
-    if(!(/_\w{9}/).test(id)) {
+    if(!(/\w{24}/).test(id)) {
       setSubmitWarning('Please select an account to delete!')
     }
     else {
@@ -64,7 +64,7 @@ const Transaction = () => {
   }
 
   const balanceLabel = (id) => {
-    if((/_\w{9}/).test(id)) {
+    if((/\w{24}/).test(id)) {
       return `${accounts[id].currency} ${accounts[id].balance}`;
     }
     else {
@@ -76,7 +76,7 @@ const Transaction = () => {
         <div data-testid='transactionComponent'>
             <Dropdown
               className='accounts-dropdown'
-              options={accountOptions} value={(/_\w{9}/).test(id) ? accounts[id]['id'] : ''}
+              options={accountOptions} value={(/\w{24}/).test(id) ? accounts[id]['_id'] : ''}
               onChange={(event) => {
                 setId(event.value);
                 }}
@@ -113,7 +113,7 @@ const Transaction = () => {
               buttonText='Delete Account'/>
             <p className='balance-section' data-testid='currentBalance'>Current balance: {balanceLabel(id)} </p>
             <p className='submit-warning' data-testid='submitWarning'>{submitWarning}</p>
-            <History history={(/_\w{9}/).test(id) ? accounts[id].history : []} data-testid='History Component'/>
+            <History history={(/\w{24}/).test(id) ? accounts[id].history : []} data-testid='History Component'/>
         </div>
     );
 }
